@@ -1,0 +1,23 @@
+.chess-grid {
+  display: grid;
+  grid-template-rows: repeat(8, 100px);
+  grid-template-columns: repeat(8, 100px);
+  width: 800px;
+  height: 800px;
+}
+
+.cell {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.file {
+  position: relative;
+  top: 70px;
+  left: 75px;
+}
+
+.rank {
+  position: relative;
+  left: 5px;
+}
