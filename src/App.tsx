@@ -9,8 +9,7 @@ const FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
 
 const BOARD = FEN.split("/").map((file) =>
   file.split("").flatMap((piece) => {
-    if (BLACK.includes(piece)) return piece;
-    if (WHITE.includes(piece)) return piece;
+    if (!Number(piece)) return piece;
     return Array(Number(file)).fill("");
   })
 );
