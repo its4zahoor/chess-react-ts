@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 const FILES = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -35,6 +35,18 @@ function App() {
     if (WHITE.includes(x)) piece = `w${piece}`;
     return piece;
   };
+
+  useEffect(() => {
+    let flippedBoard = [...board];
+    if (isFlipped) {
+      flippedBoard = [];
+      board.reverse();
+      board.forEach((x) => {
+        flippedBoard.push(x.reverse());
+      });
+    }
+    setBoard([...flippedBoard]);
+  }, [isFlipped]);
 
   return (
     <div className="chess-grid">
