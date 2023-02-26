@@ -18,24 +18,34 @@ function App() {
   const [board, setBoard] = useState(BOARD);
   const [isFlipped, setFlipped] = useState(false);
 
-  const getBg = (i: number, j: number) =>
-    (i + j) % 2 !== 0 ? "text-bg-success" : "bg-primary-subtle text-success";
+  const getBg = (i: number, j: number, x: string) => {
+    const piece = getPiece(x);
+    const style =
+      (i + j) % 2 !== 0 ? "text-bg-success" : "bg-primary-subtle text-success";
+    return `${style} ${piece}`;
+  };
 
   const getRank = (n: number) => (isFlipped ? n + 1 : 8 - n);
-  const getFile = (n: number) => (isFlipped ? 7 - n : n);
+  const getFile = (n: number) => (isFlipped ? FILES[7 - n] : FILES[n]);
+
+  const getPiece = (x: string) => {
+    if (!x) return "";
+    let piece = x.toLowerCase();
+    if (BLACK.includes(x)) piece = `b${piece}`;
+    if (WHITE.includes(x)) piece = `w${piece}`;
+    return piece;
+  };
 
   return (
     <div className="chess-grid">
       {board.map((row, rank) =>
         row.map((piece, file) => (
-          <div key={`${rank}${file}`} className={`cell ${getBg(rank, file)}`}>
-            {file === 0 && <span className="rank">{getRank(rank)}</span>}
-            {rank === 7 && <span className="file">{FILES[getFile(file)]}</span>}
-            {piece}
+          <div key={`${rank}${file}`} className={getBg(rank, file, piece)}>
+            {file === 0 && <span className="cell rank">{getRank(rank)}</span>}
+            {rank === 7 && <span className="cell file">{[getFile(file)]}</span>}
           </div>
         ))
       )}
-
       <button onClick={() => setFlipped((f) => !f)}>flip</button>
     </div>
   );
