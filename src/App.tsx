@@ -31,12 +31,7 @@ function App() {
   };
 
   useEffect(() => {
-    const flippedBoard: any[] = [];
-    board.reverse();
-    board.forEach((x) => {
-      flippedBoard.push(x.reverse());
-    });
-    setBoard([...flippedBoard]);
+    setBoard(board.reverse().map((x) => x.reverse()));
   }, [isFlipped]);
 
   return (
