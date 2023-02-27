@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 const FILES = ["a", "b", "c", "d", "e", "f", "g", "h"];
-const BLACK = ["p", "r", "b", "n", "k", "q"];
-const WHITE = ["P", "R", "B", "N", "K", "Q"];
-
 const FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-
 const BOARD = FEN.split("/").map((file) =>
   file.split("").flatMap((piece) => {
     if (!Number(piece)) return piece;
@@ -31,9 +27,7 @@ function App() {
   const getPiece = (x: string) => {
     if (!x) return "";
     let piece = x.toLowerCase();
-    if (BLACK.includes(x)) piece = `b${piece}`;
-    if (WHITE.includes(x)) piece = `w${piece}`;
-    return piece;
+    return x === piece ? `b${piece}` : `w${piece}`;
   };
 
   useEffect(() => {
