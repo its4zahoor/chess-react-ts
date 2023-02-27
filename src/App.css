@@ -9,16 +9,17 @@
 .cell {
   font-weight: bold;
   font-size: 1.25rem;
+  position: relative;
 }
 
 .file {
-  position: relative;
-  top: 70px;
-  left: 75px;
+  position: absolute;
+  bottom: 0;
+  right: 5px;
 }
 
 .rank {
-  position: relative;
+  position: absolute;
   left: 5px;
 }
 

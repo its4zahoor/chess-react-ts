@@ -22,7 +22,7 @@ function App() {
     const piece = getPiece(x);
     const style =
       (i + j) % 2 !== 0 ? "text-bg-success" : "bg-primary-subtle text-success";
-    return `${style} ${piece}`;
+    return `${style} ${piece} cell`;
   };
 
   const getRank = (n: number) => (isFlipped ? n + 1 : 8 - n);
@@ -53,8 +53,8 @@ function App() {
       {board.map((row, rank) =>
         row.map((piece, file) => (
           <div key={`${rank}${file}`} className={getBg(rank, file, piece)}>
-            {file === 0 && <span className="cell rank">{getRank(rank)}</span>}
-            {rank === 7 && <span className="cell file">{[getFile(file)]}</span>}
+            {file === 0 && <span className="rank">{getRank(rank)}</span>}
+            {rank === 7 && <span className="file">{[getFile(file)]}</span>}
           </div>
         ))
       )}
