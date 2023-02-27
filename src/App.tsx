@@ -16,8 +16,8 @@ function App() {
 
   const getBg = (i: number, j: number, x: string) => {
     const piece = getPiece(x);
-    const style =
-      (i + j) % 2 !== 0 ? "text-bg-success" : "bg-primary-subtle text-success";
+    const isDark = (i + j) % 2 !== 0;
+    const style = isDark ? "text-bg-success" : "bg-primary-subtle text-success";
     return `${style} ${piece} cell`;
   };
 
