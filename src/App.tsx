@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 const FILES = ["a", "b", "c", "d", "e", "f", "g", "h"];
-const FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+const FEN = "2k3r1/p3r3/4P3/2p1R1p1/1pP3Kp/1P5P/P7/4R3";
 const BOARD = FEN.split("/").map((file) =>
   file.split("").flatMap((piece) => {
     if (!Number(piece)) return piece;
-    return Array(Number(file)).fill("");
+    return Array(Number(piece)).fill("");
   })
 );
 
