@@ -26,7 +26,7 @@ function App() {
 
   const getPiece = (x: string) => {
     if (!x) return "";
-    let piece = x.toLowerCase();
+    const piece = x.toLowerCase();
     return x === piece ? `b${piece}` : `w${piece}`;
   };
 
