@@ -17,3 +17,6 @@ export const parseFEN = (fen) => {
 
   return { board, move, castle, enP, halfMove, fullMove };
 };
+
+const PGN_REGEX =
+  /(\d+\.)\s+(([PRNBKQ]?[a-h]?x?[a-h][1-8]\+?|O-O(-O)?)\s+)(?2)/gm;
