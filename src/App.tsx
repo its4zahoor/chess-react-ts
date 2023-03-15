@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { parseFEN } from "./utils/parsers";
-import { Board } from "./types";
+import { Board, bgType, rankType, fileType, pieceType } from "./types";
 import "./App.css";
 
 const FILES = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -10,17 +10,17 @@ function App() {
   const [board, setBoard] = useState<Board>(init.board);
   const [isFlipped, setFlipped] = useState(false);
 
-  const getBg = (i: number, j: number, x: string) => {
+  const getBg: bgType = (i, j, x) => {
     const piece = getPiece(x);
     const isDark = (i + j) % 2 !== 0;
     const style = isDark ? "text-bg-success" : "bg-primary-subtle text-success";
     return `${style} ${piece} cell`;
   };
 
-  const getRank = (n: number) => (isFlipped ? n + 1 : 8 - n);
-  const getFile = (n: number) => (isFlipped ? FILES[7 - n] : FILES[n]);
+  const getRank: rankType = (n) => (isFlipped ? n + 1 : 8 - n);
+  const getFile: fileType = (n) => (isFlipped ? FILES[7 - n] : FILES[n]);
 
-  const getPiece = (x: string) => {
+  const getPiece: pieceType = (x) => {
     if (!x) return "";
     const piece = x.toLowerCase();
     return x === piece ? `b${piece}` : `w${piece}`;
