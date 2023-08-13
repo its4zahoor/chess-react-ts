@@ -42,9 +42,14 @@ function App() {
     <div className='chess-grid'>
       {board.map((row, rank) =>
         row.map((piece, file) => (
-          <div key={`${rank}${file}`} className={getBg(rank, file, piece)}>
-            {file === 0 && <span className='rank'>{getRank(rank)}</span>}
-            {rank === 7 && <span className='file'>{[getFile(file)]}</span>}
+          <div
+            key={`${rank}${file}`}
+            className={getBg(rank, file, piece)}
+            onClick={() => handleMove(rank, file, piece)}
+          >
+            {/* {file === 0 && <span className="rank">{getRank(rank)}</span>}
+            {rank === 7 && <span className="file">{[getFile(file)]}</span>} */}
+            {rank}, {file}
           </div>
         ))
       )}
