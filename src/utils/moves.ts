@@ -1,7 +1,15 @@
 export const validIndex = (i: number) => i >= 0 && i <= 7
 
-export const pawn = (rank: number, file: number) => {
-  return [rank, file]
+export const pawn = (rank: number, file: number, moveBy: number) => {
+  const nextRank = rank - moveBy
+  const enPassant = rank - 2 * moveBy
+  const moves = [
+    [nextRank, file - 1],
+    [nextRank, file],
+    [nextRank, file + 1],
+    [enPassant, file]
+  ].filter(x => x.every(validIndex))
+  return moves
 }
 
 type movesT = Array<Array<number>>
@@ -12,7 +20,7 @@ const shiftBy1 = (v: number) => [v - 1, v + 1].filter(validIndex)
 export const knight = (rank: number, file: number): movesT => {
   const slices = [
     [shiftBy1(rank), shiftBy2(file)],
-    [shiftBy2(rank), shiftBy1(file)],
+    [shiftBy2(rank), shiftBy1(file)]
   ]
 
   return slices.flatMap(([R, F]) => R.flatMap(r => F.map(f => [r, f])))
@@ -30,7 +38,7 @@ export const bishop = (rank: number, file: number): movesT => {
     range.map(x => addN(rank, file)(x)).filter(x => x.every(validIndex)),
     range.map(x => subN(rank, file)(x)).filter(x => x.every(validIndex)),
     range.map(x => addNsubN(rank, file)(x)).filter(x => x.every(validIndex)),
-    range.map(x => subNaddN(rank, file)(x)).filter(x => x.every(validIndex)),
+    range.map(x => subNaddN(rank, file)(x)).filter(x => x.every(validIndex))
   ]
 
   return moves.flatMap(x => x)
@@ -41,7 +49,7 @@ export const rook = (rank: number, file: number): movesT => {
     range.map(x => addN(rank, file - x)(x)).filter(x => x.every(validIndex)),
     range.map(x => subN(rank, file + x)(x)).filter(x => x.every(validIndex)),
     range.map(x => addN(rank - x, file)(x)).filter(x => x.every(validIndex)),
-    range.map(x => subN(rank + x, file)(x)).filter(x => x.every(validIndex)),
+    range.map(x => subN(rank + x, file)(x)).filter(x => x.every(validIndex))
   ]
   return moves.flatMap(x => x)
 }
@@ -60,7 +68,7 @@ export const king = (rank: number, file: number): movesT => {
     addN(rank, file - 1)(1),
     subN(rank, file + 1)(1),
     addN(rank - 1, file)(1),
-    subN(rank + 1, file)(1),
+    subN(rank + 1, file)(1)
   ].filter(x => x.every(validIndex))
   return moves
 }
