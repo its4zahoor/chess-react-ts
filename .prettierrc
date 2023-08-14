@@ -15,7 +15,7 @@
   "useTabs": false,
   "singleAttributePerLine": false,
   "bracketSameLine": false,
-  "trailingComma": "es5",
+  "trailingComma": "none",
   "embeddedLanguageFormatting": "auto",
   "vueIndentScriptAndStyle": false,
   "parser": "typescript"
