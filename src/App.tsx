@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { parseFEN } from './utils/parsers'
-import { knightMoves } from './utils/validMoves'
+import { bishopMoves } from './utils/validMoves'
 import { Board, bgType, rankType, fileType, pieceType } from './types'
 import './App.css'
 
@@ -31,11 +31,8 @@ function App() {
     setBoard(board.reverse().map(x => x.reverse()))
   }, [isFlipped])
 
-  const handleMove = (r, f, p) => {
-    console.log(
-      'Zahoor: ~ file: App.tsx:36 ~ knightMoves(r, f):',
-      knightMoves(r, f)
-    )
+  const handleMove = (r: number, f: number, p: string) => {
+    bishopMoves(r, f)
   }
 
   return (
