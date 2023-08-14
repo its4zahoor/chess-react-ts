@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { parseFEN } from './utils/parsers'
-import { bishopMoves } from './utils/validMoves'
+import * as moves from './utils/moves'
 import { Board, bgType, rankType, fileType, pieceType } from './types'
 import './App.css'
 
@@ -31,8 +31,9 @@ function App() {
     setBoard(board.reverse().map(x => x.reverse()))
   }, [isFlipped])
 
-  const handleMove = (r: number, f: number, p: string) => {
-    bishopMoves(r, f)
+  const handleMove = (rank: number, file: number, piece: string) => {
+    const isBlack = piece.toLowerCase() === piece
+    moves.pawn(rank, file, isBlack ? -1 : 1)
   }
 
   return (
@@ -44,9 +45,8 @@ function App() {
             className={getBg(rank, file, piece)}
             onClick={() => handleMove(rank, file, piece)}
           >
-            {/* {file === 0 && <span className="rank">{getRank(rank)}</span>}
-            {rank === 7 && <span className="file">{[getFile(file)]}</span>} */}
-            {rank}, {file}
+            {file === 0 && <span className='rank'>{getRank(rank)}</span>}
+            {rank === 7 && <span className='file'>{[getFile(file)]}</span>}
           </div>
         ))
       )}
