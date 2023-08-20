@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
 import { parseFEN } from './utils/parsers'
-import * as moves from './utils/moves'
+import { FILES } from './utils/constants'
 import { Board, bgType, rankType, fileType, pieceType } from './types'
 import './App.css'
-
-const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
 function App() {
   const init = parseFEN()
   const [board, setBoard] = useState<Board>(init.board)
   const [isFlipped, setFlipped] = useState(false)
+  const [prevCell, setPrevCell] = useState<Array<number> | null>()
 
   const getBg: bgType = (i, j, x) => {
     const piece = getPiece(x)
@@ -31,9 +30,18 @@ function App() {
     setBoard(board.reverse().map(x => x.reverse()))
   }, [isFlipped])
 
+  const movePiece = (rank: number, file: number) => {
+    const boardCopy = structuredClone(board)
+    const [prevRank, prevFile] = prevCell || []
+    boardCopy[rank][file] = boardCopy[prevRank][prevFile]
+    boardCopy[prevRank][prevFile] = ''
+    setBoard(boardCopy)
+  }
+
   const handleMove = (rank: number, file: number, piece: string) => {
-    const isBlack = piece.toLowerCase() === piece
-    moves.pawn(rank, file, isBlack ? -1 : 1)
+    if (prevCell && !board[rank][file]) movePiece(rank, file)
+    if (piece) setPrevCell([rank, file])
+    else setPrevCell(null)
   }
 
   return (
